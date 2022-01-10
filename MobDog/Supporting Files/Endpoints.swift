@@ -20,4 +20,13 @@ class Endpoints {
             return "\(urlPath)breeds/list"
         }
     }
+    
+    class func dogsBreedsList() -> String{
+        return "\(urlPath)breeds/list"
+    }
+    
+    class func breedImages(breedName:String) -> String{
+        return "\(urlPath)breed/\(breedName)/images"
+    }
+    
 }

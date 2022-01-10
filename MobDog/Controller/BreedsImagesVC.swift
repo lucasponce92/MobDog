@@ -7,7 +7,7 @@
 
 import UIKit
 
-class BreedsImagesVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class BreedsImagesVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     var breedName = String()
     var imageUrls = [String]()
@@ -40,7 +40,6 @@ class BreedsImagesVC: UIViewController, UICollectionViewDelegate, UICollectionVi
         imagesCollectionView.frame = view.bounds
         imagesCollectionView.backgroundColor = .white
         imagesCollectionView.dataSource = self
-        imagesCollectionView.delegate = self
         
         getBreedImages(breedName: self.breedName)
     }

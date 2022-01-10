@@ -29,7 +29,10 @@ class Webservice{
                             
                             print(readableJson)*/
                             
-                            finished (data!, true, nil)
+                            DispatchQueue.main.async {
+                                finished (data!, true, nil)
+                            }
+                             
                         }
                         
                         if httpResponse.statusCode == HttpStatus.created.rawValue { finished (data!, true, nil) }

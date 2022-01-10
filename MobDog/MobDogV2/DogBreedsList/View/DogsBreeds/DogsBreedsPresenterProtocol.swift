@@ -1,0 +1,3 @@
+protocol DogsBreedsPresenterProtocol {
+    func fetchDogsBreeds()
+}

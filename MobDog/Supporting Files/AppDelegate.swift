@@ -9,11 +9,23 @@ import UIKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
+    
+    var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        guard #available(iOS 13, *) else {
+            return true
+        }
+        
+        let navController = UINavigationController()
+        let dogsBreedsVC = DogsBreedsVC()
+        let breedsImagesVC = BreedsImagesVC()
+        navController.viewControllers = [dogsBreedsVC,breedsImagesVC]
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.rootViewController = navController
+        window?.makeKeyAndVisible()
+        
         return true
     }
 

@@ -8,8 +8,10 @@
 import UIKit
 
 class BreedCell: UITableViewCell {
-
-    static let identifier = "breedCell"
+    
+    static var identifier: String {
+        return String(describing: self)
+    }
     
     private let dogIcon: UIImageView = {
        

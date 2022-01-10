@@ -9,6 +9,20 @@ import UIKit
 
 class DogsBreedsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    var dogsBreedsRestApi = DogsBreedsURLSessionRestApi()
+    
+    var dogsBreedsDataSource: DogsBreedsDataSource{
+        return DogsBreedsApiDataSource(dogsBreedsRestApi: dogsBreedsRestApi)
+    }
+
+    var dogsBreedsRepository: DogsBreedsRepository {
+        return DogsBreedsApiRepository(dogsBreedsDataSource: dogsBreedsDataSource)
+    }
+    
+    var dogsBreedsUseCase: ListDogsBreedsListUSeCase {
+       return ListDogsBreedsListUSeCase(dogsBreedsRepository: dogsBreedsRepository)
+    }
+    
     let dogsTableView : UITableView = {
         let tableView = UITableView()
         tableView.tableFooterView = UIView()
@@ -45,7 +59,6 @@ class DogsBreedsVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         dogsTableView.dataSource = self
         
         getBreeds()
-        
     }
     
     override func viewDidLayoutSubviews() {
@@ -56,7 +69,14 @@ class DogsBreedsVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     
     func getBreeds(){
         
-        self.startLoading()
+        dogsBreedsUseCase.dogsBreeds(completionHandler: { response in
+            if let response = response {
+                self.breeds = response.breeds
+                self.dogsTableView.reloadData()
+            }
+        })
+        
+        /*self.startLoading()
         Webservice.invoke(urlPath: Endpoints.getEndpointBreeds(name: nil), httpMethod: HttpMethod.GET, finished: { data, status, msg in
             OperationQueue.main.addOperation {
                 if status && data != nil {
@@ -73,7 +93,7 @@ class DogsBreedsVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                 
                 self.endLoading()
             }
-        })
+        })*/
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
